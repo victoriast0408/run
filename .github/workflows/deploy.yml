@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change if using a different branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Replace secrets in index.html
+        run: |
+          sed -i 's/GITHUB_TELEGRAM_BOT_TOKEN/${{ secrets.TELEGRAM_BOT_TOKEN }}/g' index.html
+          sed -i 's/GITHUB_TELEGRAM_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g' index.html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .  # Change if your site is in a subfolder
