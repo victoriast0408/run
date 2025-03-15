@@ -624,8 +624,10 @@ function sendToTelegram(event) {
     let message = `📩 *Нова реєстрація*\n\n *Ім'я та прізвище:* ${name} ${surname}\n *Телефон:* ${phone}\n *Екстрений номер:* ${emergencyPhone}\n *Обраний пакет:* ${package}`;
 
     // ✅ Telegram API details
-    let botToken = "YOUR_BOT_TOKEN"; // bot token
-    let chatId = "YOUR_CHAT_ID"; // Telegram channel ID
+    // let botToken = "YOUR_BOT_TOKEN"; // bot token
+    // let chatId = "YOUR_CHAT_ID"; // Telegram channel ID
+    let botToken = "GITHUB_TELEGRAM_BOT_TOKEN";
+    let chatId = "GITHUB_TELEGRAM_CHAT_ID";
 
     // ✅ Send request to Telegram Bot API
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
