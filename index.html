@@ -644,14 +644,14 @@ function sendToTelegram(event) {
     .then(data => {
         console.log("Telegram API Response:", data); // Debugging
         if (data.ok) {
-            alert("✅ Дані успішно надіслані в Telegram-канал!");
+            alert("✅ Дані успішно надіслані!");
             document.getElementById("registrationForm").submit(); // ✅ Now submit the form to send email
         } else {
-            alert("❌ Помилка відправки форми в Telegram: " + data.description);
+            alert("❌ Помилка відправки форми: " + data.description);
         }
     })
     .catch(error => {
-        alert("❌ Помилка підключення до API Telegram");
+        alert("❌ Помилка підключення до API");
         console.error(error);
     });
 }
