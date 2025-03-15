@@ -485,7 +485,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 <!--                <form id="registrationForm" onsubmit="sendToTelegram(event)">-->
-                <form id="registrationForm" action="https://formsubmit.co/victoriast0408%40gmail.com" method="POST">
+                <form id="registrationForm" method="POST" method="POST" onsubmit="sendToTelegram(event)">
 
                     <input type="hidden" name="email" data-form-email="true" value="ngm3vv6cT44or1FQLP9Penv+1L+hwnH6RGgg8uiNiJync4Jrlc1AioTZylLA9ExboOjoyiHmAsmW7P+uE+z6r5iJTUapjd+Ydnb8Cv20hIXZsT+O0aNwWff240QqPf8M">
                     
@@ -608,7 +608,54 @@
 -->
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/countdown/countdown.js"></script>  <script src="assets/theme/js/script.js"></script>  
     
+ <script>
+function sendToTelegram(event) {
+    event.preventDefault(); // Prevent default form submission
 
+    // Get form field values
+    let name = document.getElementById("first-name-form02-5").value;
+    let surname = document.getElementById("last-name-form02-5").value;
+    let phone = document.getElementById("phone-form02-5").value;
+    let emergencyPhone = document.getElementById("emergency-phone-form02-5").value;
+    let package = document.getElementById("package-form02-5").value;
+
+    // ✅ Format the Telegram message
+    let message = `📩 *Нова реєстрація*\n\n *Ім'я та прізвище:* ${name} ${surname}\n *Телефон:* ${phone}\n *Екстрений номер:* ${emergencyPhone}\n *Обраний пакет:* ${package}`;
+
+    // ✅ Telegram API details
+//    let botToken = "YOUR_BOT_TOKEN"; // bot token
+//    let chatId = "YOUR_CHAT_ID"; // Telegram channel ID
+    let botToken = "GITHUB_TELEGRAM_BOT_TOKEN";
+    let chatId = "GITHUB_TELEGRAM_CHAT_ID";
+
+
+    // ✅ Send request to Telegram Bot API
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "Markdown",
+            disable_web_page_preview: true
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Telegram API Response:", data); // Debugging
+        if (data.ok) {
+            alert("✅ Дані успішно надіслані!");
+            document.getElementById("registrationForm").submit(); // ✅ Now submit the form to send email
+        } else {
+            alert("❌ Помилка відправки форми: " + data.description);
+        }
+    })
+    .catch(error => {
+        alert("❌ Помилка підключення до API");
+        console.error(error);
+    });
+}
+</script>
 
     <script src="assets/formoid/formoid.min.js"></script>  
   
