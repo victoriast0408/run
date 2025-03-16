@@ -623,8 +623,9 @@ function sendToTelegram(event) {
     let message = `📩 *Нова реєстрація*\n\n *Ім'я та прізвище:* ${name} ${surname}\n *Телефон:* ${phone}\n *Екстрений номер:* ${emergencyPhone}\n *Обраний пакет:* ${package}`;
 
     // ✅ Send request to Google Apps Script
-    fetch("https://script.google.com/macros/s/AKfycbx21gd7zQSlARqZbBApbQo3yz99UjlgMG5fy_JVrF68uCLAGF6q6Tc5bs7hn9UOGumlEg/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxMAATcSW3R4tWw39qAG6OLYfO3P7z4hIiIo2qtkUOc1v0Ey5UilCmVXm0nky7EmZg7JQ/exec", {
         method: "POST",
+        mode: "no-cors", 
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             name: name,
