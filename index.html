@@ -677,8 +677,8 @@ function sendToTelegram(event) {
         })
     })
     .then(response => response.json()) // ✅ Parse JSON response
-    alert(response);
     .then(data => {
+        alert(response);
         console.log("Apps Script Response:", data);
         if (data.status === "success") {
             alert("✅ Дані успішно надіслані!");
