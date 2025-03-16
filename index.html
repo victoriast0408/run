@@ -678,7 +678,7 @@ function sendToTelegram(event) {
     })
     .then(response => response.json()) // ✅ Parse JSON response
     .then(data => {
-        alert(response);
+        
         console.log("Apps Script Response:", data);
         if (data.status === "success") {
             alert("✅ Дані успішно надіслані!");
@@ -689,7 +689,7 @@ function sendToTelegram(event) {
     })
     .catch(error => {
         // alert("❌ Помилка підключення до Google Apps Script API");
-        console.error(error);
+        alert(error);
     });
 }
 </script>
