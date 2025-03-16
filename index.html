@@ -678,18 +678,17 @@ function sendToTelegram(event) {
     })
     .then(response => response.json()) // ✅ Parse JSON response
     .then(data => {
-        
         console.log("Apps Script Response:", data);
         if (data.status === "success") {
-            alert("✅ Дані успішно надіслані!");
+            alert(`✅ Дані успішно надіслані! (Код: ${data.code})\n\n📩 Відповідь Telegram: ${data.telegramResponse}`);
             document.getElementById("registrationForm").reset(); // ✅ Clear the form
         } else {
-            alert("❌ Помилка відправки: " + data.message);
+            alert(`❌ Помилка: ${data.message} (Код: ${data.code})`);
         }
     })
     .catch(error => {
-        // alert("❌ Помилка підключення до Google Apps Script API");
-        alert(error);
+        alert("❌ Помилка підключення до Google Apps Script API");
+        console.error(error);
     });
 }
 </script>
