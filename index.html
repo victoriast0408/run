@@ -623,32 +623,32 @@ function sendToTelegram(event) {
     let message = `📩 *Нова реєстрація*\n\n *Ім'я та прізвище:* ${name} ${surname}\n *Телефон:* ${phone}\n *Екстрений номер:* ${emergencyPhone}\n *Обраний пакет:* ${package}`;
 
     // ✅ Send request to Google Apps Script
-    fetch("https://script.google.com/macros/s/AKfycbxMAATcSW3R4tWw39qAG6OLYfO3P7z4hIiIo2qtkUOc1v0Ey5UilCmVXm0nky7EmZg7JQ/exec", {
-        method: "POST",
-        mode: "no-cors", 
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            name: name,
-            surname: surname,
-            phone: phone,
-            emergencyPhone: emergencyPhone,
-            package: package
-        })
+    fetch("https://script.google.com/macros/s/AKfycbxTVdNXSMCNHIxSnnsT5HZmkAQYPZbyRtMljwLibGpbWcMFMyLO4v46YNQYsyznPX5llA/exec", {
+    method: "POST",
+    mode: "cors", // ✅ Ensures it works with CORS
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        name: name,
+        surname: surname,
+        phone: phone,
+        emergencyPhone: emergencyPhone,
+        package: package
     })
-    .then(response => response.text())
-    .then(data => {
-        console.log("Apps Script Response:", data); // Debugging
-        if (data.includes("Success")) {
-            alert("✅ Дані успішно надіслані!");
-            document.getElementById("registrationForm").submit(); // ✅ Submit form after Telegram confirmation
-        } else {
-            alert("❌ Помилка відправки форми: " + data);
-        }
-    })
-    .catch(error => {
-        alert("❌ Помилка підключення до Google Apps Script API");
-        console.error(error);
-    });
+})
+  .then(response => response.json()) // ✅ Parse response as JSON
+  .then(data => {
+      console.log("Apps Script Response:", data);
+      if (data.status === "success") {
+          alert("✅ Дані успішно надіслані!");
+          document.getElementById("registrationForm").reset(); // ✅ Clear the form
+    } else {
+        alert("❌ Помилка відправки: " + data.message);
+    }
+})
+  .catch(error => {
+    alert("❌ Помилка підключення до Google Apps Script API");
+    console.error(error);
+});
 }
 </script>
 
