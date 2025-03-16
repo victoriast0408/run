@@ -608,7 +608,7 @@
 -->
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/countdown/countdown.js"></script>  <script src="assets/theme/js/script.js"></script>  
     
-<script>
+<!-- <script>
 function sendToTelegram(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -650,8 +650,48 @@ function sendToTelegram(event) {
         console.error(error);
     });
 }
-</script>
+</script> -->
 
+<script>
+function sendToTelegram(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form field values
+    let name = document.getElementById("first-name-form02-5").value;
+    let surname = document.getElementById("last-name-form02-5").value;
+    let phone = document.getElementById("phone-form02-5").value;
+    let emergencyPhone = document.getElementById("emergency-phone-form02-5").value;
+    let package = document.getElementById("package-form02-5").value;
+
+    // ✅ Send request to Google Apps Script
+    fetch("https://script.google.com/macros/s/AKfycbxisYPiOQQePkDODUfa_4MX2Bv68qg6q5-sIbaDfRNfI287zhWyVpbzO8KsxvJQwi3H3w/exec", {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: name,
+            surname: surname,
+            phone: phone,
+            emergencyPhone: emergencyPhone,
+            package: package
+        })
+    })
+    .then(response => response.json()) // ✅ Parse JSON response
+    .then(data => {
+        console.log("Apps Script Response:", data);
+        if (data.status === "success") {
+            alert("✅ Дані успішно надіслані!");
+            document.getElementById("registrationForm").reset(); // ✅ Clear the form
+        } else {
+            alert("❌ Помилка відправки: " + data.message);
+        }
+    })
+    .catch(error => {
+        alert("❌ Помилка підключення до Google Apps Script API");
+        console.error(error);
+    });
+}
+</script>
 
 
     <script src="assets/formoid/formoid.min.js"></script>  
